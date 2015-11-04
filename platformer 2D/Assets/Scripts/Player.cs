@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using CnControls;
 
 public class Player : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour {
 	public bool canDoubleJump;
 	public bool wallSliding;
 	public bool facingRight = true;
+    private bool jumped = false;
+   
 
 
 		//stats
@@ -43,6 +46,11 @@ public class Player : MonoBehaviour {
 		curHealt = maxHealt;
 		gm = GameObject.FindGameObjectWithTag ("GameMaster").GetComponent <GameMaster>();
 	}
+
+    public void Jump()
+    {
+        jumped = true;
+    }
 	
 
 	void Update () 
@@ -50,23 +58,24 @@ public class Player : MonoBehaviour {
 		anim.SetBool ("Grounded", grounded);
 		anim.SetFloat ("Speed", Mathf.Abs(rb2d.velocity.x));
 
-			if(Input.GetAxis ("Horizontal")< -0.1F)
+        if (Input.GetAxis("Horizontal") < -0.1F || CnInputManager.GetAxis("Horizontal") < -0.1F)
 			{
 				transform.localScale = new Vector3 (-1,1,1);
 				facingRight = false;
 			}
-			if(Input.GetAxis ("Horizontal")> 0.1F)
+        if (Input.GetAxis("Horizontal") > 0.1F || CnInputManager.GetAxis("Horizontal") > 0.1F)
 			{
 				transform.localScale = new Vector3 (1,1,1);
 				facingRight = true;
 			}
 
-			if(Input.GetButtonDown ("Jump") && !wallSliding )
+			if( jumped && !wallSliding ) //Input.GetButtonDown ("Jump")
 			{
 					if(grounded)
 					{
 						rb2d.AddForce (Vector2.up * jumpPower);
 						canDoubleJump = true;
+                        jumped = false;
 					}
 
 					else
@@ -76,6 +85,7 @@ public class Player : MonoBehaviour {
 							canDoubleJump = false;
 							rb2d.velocity = new Vector2 (rb2d.velocity.x, 0);
 							rb2d.AddForce(Vector2.up * jumpPower / 1.75F);
+                            jumped = false;
 						}
 					}
 			 }
@@ -93,7 +103,7 @@ public class Player : MonoBehaviour {
 		if (!grounded) 
 		{
 			wallCheck = Physics2D.OverlapCircle (wallCheckPoint.position, 0.1F, wallLayerMask);
-			if (facingRight && Input.GetAxis ("Horizontal") > 0.1F || !facingRight && Input.GetAxis ("Horizontal") < 0.1F)
+            if (facingRight && CnInputManager.GetAxis("Horizontal") > 0.1F || !facingRight && CnInputManager.GetAxis("Horizontal") < 0.1F)
 				{
 					if (wallCheck)
 					{
@@ -116,15 +126,17 @@ public class Player : MonoBehaviour {
 
 		wallSliding = true;
 
-		if (Input.GetButtonDown ("Jump")) 
+		if (jumped) 
 		{
 			if (facingRight) 
 			{
 				rb2d.AddForce(new Vector2 (-1.5F, 2)* jumpPower);
+                jumped = false;
 			}
 			else
 			{
 				rb2d.AddForce(new Vector2 (1.5F, 2)* jumpPower);
+                jumped = false;
 			}
 		}
 	}
@@ -137,7 +149,7 @@ public class Player : MonoBehaviour {
 		easeVelocity.z = 0.0f;
 		easeVelocity.x *= 0.75f;
 
-		float h = Input.GetAxis("Horizontal");
+		float h = CnInputManager.GetAxis("Horizontal");
 
 		//fake friction
 

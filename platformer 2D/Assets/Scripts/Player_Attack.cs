@@ -7,6 +7,7 @@ public class Player_Attack : MonoBehaviour {
 
 	private float attackTimer = 0;
 	private float attackCd = 0.3F;
+    private bool attack = false;
 
 	public Collider2D attackTrigger;
 
@@ -18,15 +19,21 @@ public class Player_Attack : MonoBehaviour {
 		attackTrigger.enabled = false;
 	}
 
+    public void Attackbutton()
+    {
+        attack = true;
+    }
+
 
 	void Update ()
 	{
-		if (Input.GetKeyDown ("f") && !attacking) 
+        if (attack && !attacking) 
 		{
 			attacking = true;
 			attackTimer = attackCd;
 
 			attackTrigger.enabled = true;
+            attack = false;
 
 		}
 
@@ -43,6 +50,7 @@ public class Player_Attack : MonoBehaviour {
 			}
 		}
 		anim.SetBool ("Attacking", attacking);
+        attack = false;
 	}
 }
 
