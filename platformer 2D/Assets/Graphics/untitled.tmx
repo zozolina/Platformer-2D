@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="Giant_Land_Tiles" tilewidth="16" tileheight="16" tilecount="325">
+  <image source="../../../../../Desktop/new game/Giant_Land_Tiles.png" width="400" height="220"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztl8tOwlAURYuiKBPngvggQee+AAnqFygUgvb/P8RVwqAxt+2h9oXslazB3ffRk9vkJNfzhBDCTROP8NiYi2xE77OFJ3iK7V/rLrCHl8ZcZCN6n1d4jTfYr7AmIf5KUp+x9iCRH0l9Rj0oHxp4gIcpmSiHc+xgNyUT5XCPD/iYkoliUC+qF+pF9WLfetFZ1QWINQO8xbuqC9lzwv8wxVd8w/cCv5X0Bt72zbwLc9vm4VmrjV/4jUGmm7bxhM84xBGO8QUnJc9Zcute19iyJq7mwGFRfOAnznCOPi5wWfKcJbfudY0ta1xn+zGK/8kPkyY27A==
+  </data>
+ </layer>
+</map>
